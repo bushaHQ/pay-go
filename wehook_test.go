@@ -55,6 +55,7 @@ func TestWebhookService_GetNotification(t *testing.T) {
 	}
 }
 
+// newWebhookRequest creates a new request webhook
 func newWebhookRequest(key string, pass bool) *http.Request {
 	body := `{"message":"test"}`
 	buf := strings.NewReader(body)

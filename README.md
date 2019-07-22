@@ -21,7 +21,7 @@ func main() {
 	c := pay.NewClient(apiKey, nil)
 	c.BaseURL, _ = url.Parse("https://api.staging.pay.busha.co")
 
-	fmt.Println(c.Charge.Create(pay.ChargeCreate{
+	fmt.Println(c.Charge.Create(pay.ChargeCreateReq{
 		LocalPrice: pay.Amount{
 			Amount:   1000,
 			Currency: "NGN",

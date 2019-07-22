@@ -63,6 +63,8 @@ type Balance struct {
 	Crypto *Amount `json:"crypto,omitempty"`
 }
 
+// List lists the available charges a business has. page and limit are used to paginate the response.
+// page is the page to get from, while limit i
 func (c *ChargeService) List(page, limit int) ([]Charge, error) {
 	var cc = []Charge{}
 
@@ -70,6 +72,7 @@ func (c *ChargeService) List(page, limit int) ([]Charge, error) {
 	return cc, err
 }
 
+// Get gets a single charge with the given id
 func (c *ChargeService) Get(id string) (Charge, error) {
 	var ch Charge
 
@@ -77,14 +80,15 @@ func (c *ChargeService) Get(id string) (Charge, error) {
 	return ch, err
 }
 
-func (c *ChargeService) Create(cc ChargeCreate) (Charge, error) {
+// Create creates a new charge
+func (c *ChargeService) Create(cc ChargeCreateReq) (Charge, error) {
 	var ch Charge
 
 	err := c.client.Call("POST", fmt.Sprintf("/charges"), cc, &ch)
 	return ch, err
 }
 
-// Cancel
+// Cancel cancels a charge
 func (c *ChargeService) Cancel(id string) (Charge, error) {
 	var ch Charge
 

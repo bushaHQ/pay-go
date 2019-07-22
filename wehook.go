@@ -32,6 +32,7 @@ type Event struct {
 	Data       Charge    `json:"data"`
 }
 
+// VerifyEvent verifies the X-BP-Webhook-Signature header's value is correct for the body passed
 func (w *WebhookService) VerifyEvent(r *http.Request) bool {
 	b, err := copyBody(r)
 	if err != nil {
@@ -42,6 +43,7 @@ func (w *WebhookService) VerifyEvent(r *http.Request) bool {
 	return (w.genHash(b) == headerSignature)
 }
 
+// GetNotification gets the notification from a request made to the webhook
 func (w *WebhookService) GetNotification(r *http.Request) (Notification, error) {
 
 	if !w.VerifyEvent(r) {

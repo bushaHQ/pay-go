@@ -40,8 +40,10 @@ type Client struct {
 	Logger     logger
 }
 
+// Response response from busha-pay
 type Response map[string]interface{}
 
+// NewClient creates a new busha-pay
 func NewClient(key string, httpClient *http.Client) *Client {
 
 	if httpClient == nil {
@@ -64,6 +66,8 @@ func NewClient(key string, httpClient *http.Client) *Client {
 	return client
 }
 
+// Call make the http request to busha pay.method, the http method. path is the url path.
+// body is the http request body. v is the interface the response will be written to
 func (c *Client) Call(method, path string, body, v interface{}) error {
 	var buf bytes.Buffer
 
