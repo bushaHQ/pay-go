@@ -16,7 +16,7 @@ import (
 
 const (
 	baseURL           = "https://api.pay.busha.co"
-	defautHttpTimeout = 60 * time.Second
+	defautHTTPTimeout = 60 * time.Second
 )
 
 type service struct {
@@ -27,11 +27,13 @@ type logger interface {
 	Println(...interface{})
 }
 
+// Client ...
 type Client struct {
-	common     service
-	httpClient *http.Client
-	key        string
-	BaseURL    *url.URL
+	common        service
+	httpClient    *http.Client
+	key           string
+	webhookSecret string
+	BaseURL       *url.URL
 
 	Charge  *ChargeService
 	Webhook *WebhookService
@@ -47,7 +49,7 @@ type Response map[string]interface{}
 func NewClient(key string, httpClient *http.Client) *Client {
 
 	if httpClient == nil {
-		httpClient = &http.Client{Timeout: defautHttpTimeout}
+		httpClient = &http.Client{Timeout: defautHTTPTimeout}
 	}
 	u, _ := url.Parse(baseURL)
 
@@ -64,6 +66,11 @@ func NewClient(key string, httpClient *http.Client) *Client {
 	client.Webhook = (*WebhookService)(&client.common)
 
 	return client
+}
+
+// SetWebhookSecret  set webhook shared secret used for validate incoming requests
+func (c *Client) SetWebhookSecret(secret string) {
+	c.webhookSecret = secret
 }
 
 // Call make the http request to busha pay.method, the http method. path is the url path.
