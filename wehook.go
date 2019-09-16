@@ -15,15 +15,18 @@ import (
 // webhook
 // verify
 
+// WebhookService service
 type WebhookService service
 
 // FormattedCharge ...
 
+// Notification resource
 type Notification struct {
 	ID    uint  `json:"id"`
 	Event Event `json:"event"`
 }
 
+// Event resource
 type Event struct {
 	Resource   string    `json:"resource"`
 	Type       string    `json:"Type"`
@@ -62,7 +65,7 @@ func (w *WebhookService) GetNotification(r *http.Request) (Notification, error) 
 
 // genHash generates signature of the body for X-BP-Webhook-Signature header check
 func (w *WebhookService) genHash(b []byte) string {
-	return genHash(b, []byte(w.client.key))
+	return genHash(b, []byte(w.client.webhookSecret))
 }
 
 func genHash(b, key []byte) string {
