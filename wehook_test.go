@@ -26,14 +26,14 @@ func TestWebhookService_GetNotification(t *testing.T) {
 		{
 			"Fail: key does not match",
 			fields{payClient},
-			args{newWebhookRequest(payClient.key, false)},
+			args{newWebhookRequest(payClient.webhookSecret, false)},
 			Notification{},
 			true,
 		},
 		{
-			"Fail: key should match",
+			"succeed: key should match",
 			fields{payClient},
-			args{newWebhookRequest(payClient.key, true)},
+			args{newWebhookRequest(payClient.webhookSecret, true)},
 			Notification{},
 			false,
 		},
