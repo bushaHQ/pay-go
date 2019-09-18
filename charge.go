@@ -95,11 +95,3 @@ func (c *ChargeService) Cancel(id string) (Charge, error) {
 	err := c.client.Call("POST", fmt.Sprintf("/charges/%s/cancel", id), nil, &ch)
 	return ch, err
 }
-
-// Dispense
-func (c *ChargeService) Dispense(d DispenseReq) (Response, error) {
-	var resp Response
-
-	err := c.client.Call("POST", fmt.Sprintf("/charges/faucet/dispense"), d, &resp)
-	return resp, err
-}
