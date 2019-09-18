@@ -21,6 +21,8 @@ func init() {
 	// set base url to staging
 	payClient.BaseURL, _ = url.Parse("https://api.staging.pay.busha.co")
 
+	payClient.SetWebhookSecret(os.Getenv("PAY_TEST_WH_KEY"))
+
 	// Webhooks Request
 
 }
